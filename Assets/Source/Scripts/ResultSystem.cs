@@ -31,9 +31,10 @@ public class ResultSystem : GameSystem
     private void Restart()
     {
         _resultScreen.Close();
-        _gameData.RestartSignal.Dispatch();
 
         SetGameStatus(false);
+
+        _gameData.RestartSignal.Dispatch();
     }
 
     private void SetGameStatus(bool gameIsOver)

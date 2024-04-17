@@ -1,15 +1,17 @@
 ﻿using AppodealStack.Monetization.Api;
 using AppodealStack.Monetization.Common;
+using Supyrb;
+using UnityEngine;
 
 public class AdsSystem : GameSystem
 {
-    private const string APP_KEY = "YOUR_APPODEAL_APP_KEY";
+    [SerializeField] private string _appKey;
 
     public override void OnStart()
     {
-        Appodeal.Initialize(APP_KEY, AppodealAdType.Interstitial);
+        Appodeal.Initialize(_appKey, AppodealAdType.Interstitial);
 
-        _gameData.RestartSignal.AddListener(ShowInterstitial);
+        Signals.Get<OnGameRestartedSignal>().AddListener(ShowInterstitial);
     }
 
     private void ShowInterstitial()

@@ -23,7 +23,7 @@ MonoBehaviour:
   nSLocationWhenInUseUsageDescription: 0
   nSCalendarsUsageDescription: 0
   nSAppTransportSecurity: 0
-  iosSkAdNetworkItems: 0
+  iosSkAdNetworkItems: 1
   iosSkAdNetworkItemsList:
   - v9wttpbfk9.skadnetwork
   - n38lu8286q.skadnetwork

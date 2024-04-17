@@ -14,4 +14,9 @@ public class IAPSystem : GameSystem
                 break;
         }      
     }
+
+    public void FakePurchase(Product product)
+    {
+        OnPurchase(product);
+    }
 }

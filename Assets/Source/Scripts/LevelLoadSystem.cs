@@ -1,3 +1,4 @@
+using Supyrb;
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -6,7 +7,7 @@ public class LevelLoadSystem : GameSystem
 {
     [SerializeField] private LevelView _levelView;
 
-    private int _levelNumber => _configData.MaximumLevel < _playerData.Level ? _configData.MaximumLevel : _playerData.Level + 1;
+    private int _levelNumber => _configData.MaximumLevel <= _playerData.Level ? _configData.MaximumLevel : _playerData.Level + 1;
 
     public override void OnStart()
     {
@@ -36,5 +37,7 @@ public class LevelLoadSystem : GameSystem
         LoadLevel();
 
         Bootstrap.Instance.SaveGame();
+
+        Signals.Get<OnGameRestartedSignal>()?.Dispatch();
     }
 }
