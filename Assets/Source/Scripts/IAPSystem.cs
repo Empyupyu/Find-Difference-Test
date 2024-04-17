@@ -7,7 +7,7 @@ public class IAPSystem : GameSystem
         switch (product.definition.id)
         {
             case "buy_time_10":
-                _gameData.CurrentTimer += (float)product.definition.payout.quantity;
+                PurhcaseTime((float)product.definition.payout.quantity);
                 break;
 
             default:
@@ -15,8 +15,15 @@ public class IAPSystem : GameSystem
         }      
     }
 
-    public void FakePurchase(Product product)
+    public void FakePurchase()
     {
-        OnPurchase(product);
+#if (!UNITY_EDITOR)
+        PurhcaseTime(10f);
+#endif
+    }
+
+    private void PurhcaseTime(float value)
+    {
+        _gameData.CurrentTimer += value;
     }
 }
