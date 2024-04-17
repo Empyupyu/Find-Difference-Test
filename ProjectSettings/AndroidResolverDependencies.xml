@@ -1,6 +1,5 @@
 <dependencies>
   <packages>
-    <package>com.appodeal.ads.sdk.networks:iab:3.2.0.0</package>
     <package>com.appodeal.ads.sdk:core:3.2.0</package>
   </packages>
   <files>
@@ -38,9 +37,7 @@
     <file>Assets/Plugins/Android/com.appodeal.ads.sdk.core.internal-3.2.0.aar</file>
     <file>Assets/Plugins/Android/com.appodeal.ads.sdk.core.public-3.2.0.aar</file>
     <file>Assets/Plugins/Android/com.appodeal.ads.sdk.core-3.2.0.aar</file>
-    <file>Assets/Plugins/Android/com.appodeal.ads.sdk.networks.iab-3.2.0.0.aar</file>
     <file>Assets/Plugins/Android/com.appodeal.protobuf-models-1.4.0.jar</file>
-    <file>Assets/Plugins/Android/com.explorestack.iab-1.5.2.aar</file>
     <file>Assets/Plugins/Android/com.explorestack.protobuf-java-3.16.0.jar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-identifier-17.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-17.0.0.aar</file>
@@ -54,7 +51,7 @@
     <file>Assets/Plugins/Android/org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm-1.6.0.jar</file>
   </files>
   <settings>
-    <setting name="androidAbis" value="armeabi-v7a" />
+    <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
     <setting name="bundleId" value="com.DefaultCompany.FindDif" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
