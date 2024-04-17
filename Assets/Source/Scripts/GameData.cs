@@ -9,5 +9,6 @@ public class GameData
     public Level Level;
 
     public bool GameIsOver;
+    public float CurrentTimer;
 }
 

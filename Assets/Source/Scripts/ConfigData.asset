@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FindObjectEffect>k__BackingField: {fileID: 19800004, guid: 757df604761b8ef42831192c70ee1099, type: 3}
   <LevelTimer>k__BackingField: 120
+  <MaximumLevel>k__BackingField: 1

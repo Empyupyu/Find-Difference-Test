@@ -1,26 +1,23 @@
 using System;
-using System.Drawing;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.iOS;
-using static AppodealStack.Monetization.Common.AppodealCallbacks;
 
 public class LevelLoadSystem : GameSystem
 {
     [SerializeField] private LevelView _levelView;
 
+    private int _levelNumber => _configData.MaximumLevel < _playerData.Level ? _configData.MaximumLevel : _playerData.Level + 1;
+
     public override void OnStart()
     {
-        LoadLevel("Level 1");
+        LoadLevel();
 
         _gameData.RestartSignal.AddListener(Restart);
     }
 
-    private async void LoadLevel(string assetID)
+    private async void LoadLevel()
     {
-        var asset = Addressables.InstantiateAsync(assetID);
+        var asset = Addressables.InstantiateAsync($"Level {_levelNumber}");
         var load = await asset.Task;
 
         if (load.TryGetComponent(out Level level) == false)
@@ -36,7 +33,7 @@ public class LevelLoadSystem : GameSystem
         _playerData.Level++;
 
         Destroy(_gameData.Level.gameObject);
-        LoadLevel("Level 1");
+        LoadLevel();
 
         Bootstrap.Instance.SaveGame();
     }

@@ -5,4 +5,5 @@ public sealed class ConfigData : ScriptableObject
 {
     [field: SerializeField] public ParticleSystem FindObjectEffect { get; private set; }
     [field: SerializeField] public float LevelTimer { get; private set; }
+    [field: SerializeField] public int MaximumLevel { get; private set; }
 }
