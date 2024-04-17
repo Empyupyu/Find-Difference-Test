@@ -1,10 +1,11 @@
+using Supyrb;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PointClickSystem : MonoBehaviour
 {
     public Level level;
-
     private Camera _mainCamera;
 
     void Start()
@@ -41,5 +42,7 @@ public class PointClickSystem : MonoBehaviour
         Debug.Log("Find difference object " + obj.name);
    
         level.RemoveFindObject(obj);
-    }
+
+        Signals.Get<SpawnEffectSignal>()?.Dispatch(obj);
+    } 
 }

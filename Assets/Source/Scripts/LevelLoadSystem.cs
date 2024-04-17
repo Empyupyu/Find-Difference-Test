@@ -1,3 +1,4 @@
+using Supyrb;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,21 +8,29 @@ using UnityEngine.AddressableAssets;
 
 public class LevelLoadSystem : MonoBehaviour
 {
-    private GameObject _level;
+    private Level _level;
 
-    async void Start()
+    private void Start()
     {
-        var level = await LoadLevel<Level>("Level 1");
+        LoadLevel("Level 1");
+
+        Signals.Get<RestartSignal>().AddListener(Restart);
     }
 
-    protected async Task<T> LoadLevel<T>(string assetID)
+    private async void LoadLevel(string assetID)
     {
         var asset = Addressables.InstantiateAsync(assetID);
-        _level = await asset.Task;
+        var load = await asset.Task;
 
-        if (_level.TryGetComponent(out T level) == false)
+        if (load.TryGetComponent(out Level level) == false)
             throw new NullReferenceException();
 
-        return level;
+        _level = level;
+    }
+
+    private void Restart()
+    {
+        Destroy(_level.gameObject);
+        LoadLevel("Level 1");
     }
 }
