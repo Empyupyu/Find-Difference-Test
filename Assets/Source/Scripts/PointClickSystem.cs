@@ -1,19 +1,17 @@
 using Supyrb;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class PointClickSystem : MonoBehaviour
+public class PointClickSystem : GameSystem
 {
-    public Level level;
     private Camera _mainCamera;
 
-    void Start()
+    public override void OnStart()
     {
         _mainCamera = Camera.main;
     }
 
-    void Update()
+    public override void OnUpdate()
     {
         TryHitCollider();
     }
@@ -21,9 +19,6 @@ public class PointClickSystem : MonoBehaviour
     private void TryHitCollider()
     {
         if (!Input.GetMouseButtonDown(0)) return;
-
-        if (level == null)
-            level = FindAnyObjectByType<Level>();
 
         Vector3 mousePosition = Input.mousePosition - _mainCamera.transform.position;
         var hit = Physics2D.GetRayIntersection(_mainCamera.ScreenPointToRay(mousePosition));
@@ -36,13 +31,17 @@ public class PointClickSystem : MonoBehaviour
 
     private void CheckDifference(DifferenceObject differenceObject)
     {
-        var obj = level.DifferenceObjects.FirstOrDefault(o => o.Equals(differenceObject));
+        var obj = _gameData.Level.DifferenceObjects.FirstOrDefault(o => o.Equals(differenceObject));
         if (obj == null) return;
 
         Debug.Log("Find difference object " + obj.name);
-   
-        level.RemoveFindObject(obj);
+
+        _gameData.Level.RemoveFindObject(obj);
 
         Signals.Get<SpawnEffectSignal>()?.Dispatch(obj);
+
+        if (_gameData.Level.DifferenceObjects.Count != 0) return;
+
+        _gameData.OnFindAllDefferenceObjects?.Dispatch();
     } 
 }

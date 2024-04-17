@@ -1,6 +1,4 @@
 using Supyrb;
 
-public class RestartSignal : Signal
-{
-    
-}
+public class RestartSignal : Signal { }
+

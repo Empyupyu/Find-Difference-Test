@@ -1,20 +1,15 @@
-using Supyrb;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-
-public class LevelLoadSystem : MonoBehaviour
+public class LevelLoadSystem : GameSystem
 {
-    private Level _level;
+    [SerializeField] private LevelView _levelView;
 
-    private void Start()
+    public override void OnStart()
     {
         LoadLevel("Level 1");
 
-        Signals.Get<RestartSignal>().AddListener(Restart);
+        _gameData.RestartSignal.AddListener(Restart);
     }
 
     private async void LoadLevel(string assetID)
@@ -25,12 +20,18 @@ public class LevelLoadSystem : MonoBehaviour
         if (load.TryGetComponent(out Level level) == false)
             throw new NullReferenceException();
 
-        _level = level;
+        _gameData.Level = level;
+
+        _levelView.UpdateLevel(_playerData.Level);
     }
 
     private void Restart()
     {
-        Destroy(_level.gameObject);
+        _playerData.Level++;
+
+        Destroy(_gameData.Level.gameObject);
         LoadLevel("Level 1");
+
+        Bootstrap.Instance.SaveGame();
     }
 }
